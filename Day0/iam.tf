@@ -1,5 +1,5 @@
 resource "aws_iam_role" "scsrole" {
-  name = "student-role-var.prefix"
+  name = "student-role-${var.prefix}"
 
   assume_role_policy = <<EOF
 {
@@ -19,6 +19,6 @@ EOF
 }
 
 resource "aws_iam_instance_profile" "scsprofile" {
-  name = "student-profile-var.prefix"
+  name = "student-profile-${var.prefix}"
   role = aws_iam_role.scsrole.name
 }
