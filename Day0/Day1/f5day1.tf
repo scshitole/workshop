@@ -8,17 +8,17 @@ terraform {
 
 
   cloud {
-    organization = "student-xxxx"
+    organization = "STUDENT-${var.prefix}"
 
 
     workspaces {
-      name = "workspace-xxxx"
+      name = "workspace-${var.prefix}"
     }
   } 
 }
 
 resource "tfe_organization" "test" {
-  name  = "student-xxxx"
+  name  = "STUDENT-${var.prefix}"
   email = "admin@company.com"
 }
 
@@ -31,7 +31,7 @@ resource "tfe_variable_set" "bigip_credentials" {
 
 resource "tfe_variable" "hostname" {
   key             = "hostname"
-  value           = "x.x.x.x:8443"
+  value           = var.address
   category        = "terraform"
   description     = "a useful description"
   variable_set_id = tfe_variable_set.bigip_credentials.id
@@ -47,7 +47,7 @@ resource "tfe_variable" "username" {
 
 resource "tfe_variable" "password" {
   key             = "password"
-  value           = "xxxxx"
+  value           = var.password
   category        = "terraform"
   description     = "an environment variable"
   variable_set_id = tfe_variable_set.bigip_credentials.id
