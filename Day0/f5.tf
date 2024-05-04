@@ -3,9 +3,9 @@ resource "aws_instance" "f5" {
   #F5 BIGIP-14.1.0.3-0.0.6 PAYG-Good 25Mbps-190326002717
   # ami = "ami-00a9fd893d5d15cf6" #for east coast ami
   #ami = "ami-0a4febf7d5f541674"
- # ami = "ami-09ae9af26d2e96786"
-# ami = "ami-02df75eeb30b4ad59" #latest
-  ami = "ami-0a1e7d6045016baa5"
+  # ami = "ami-09ae9af26d2e96786"
+  # ami = "ami-02df75eeb30b4ad59" #latest
+  ami                         = "ami-0a1e7d6045016baa5"
   instance_type               = "m5.xlarge"
   private_ip                  = "10.0.0.200"
   associate_public_ip_address = true

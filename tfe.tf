@@ -62,10 +62,12 @@ resource "local_file" "tfcvar" {
 data "template_file" "cloud" {
   template = file("Day0/cloud.tf.example")
   vars = {
-    org    = "STUDENT-${local.prefix}"
-    works  = "workspace-${local.prefix}"
+    org   = "STUDENT-${local.prefix}"
+    works = "workspace-${local.prefix}"
   }
 }
 resource "local_file" "cloud" {
   content  = data.template_file.cloud.rendered
   filename = "Day0/cloud.tf"
+}
+
