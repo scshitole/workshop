@@ -1,0 +1,6 @@
+variable "prefix" {
+default = "${prefix}
+}
+
+variable "address" {}
+variable "password" {}
