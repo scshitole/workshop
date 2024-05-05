@@ -1,4 +1,5 @@
 
 variable "prefix" {}
 variable "address" {}
-password "password" {}
+variable "password" {}
+variable "port" {}
