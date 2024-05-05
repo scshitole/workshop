@@ -1,6 +1,5 @@
-variable "prefix" {
-default = "${prefix}
-}
-
 variable "address" {}
 variable "password" {}
+variable "port" {}
+variable "username" {}
+

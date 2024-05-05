@@ -71,16 +71,3 @@ resource "local_file" "cloud" {
   filename = "Day0/cloud.tf"
 }
 
-data "template_file" "day1prefix" {
-  template = file("Day1/variables.tf.example")
-  vars = {
-    prefix   = "${local.prefix}"
-    address  = "address"
-    password = "password"
-  }
-}
-
-resource "local_file" "day1prefix" {
-  content  = data.template_file.day1prefix.rendered
-  filename = "Day1/variables.tf"
-}
