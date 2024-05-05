@@ -1,4 +1,3 @@
-
 variable "prefix" {}
 variable "address" {}
 variable "password" {}
