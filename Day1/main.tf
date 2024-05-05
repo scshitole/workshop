@@ -1,6 +1,6 @@
 terraform {
   cloud {
-    organization = "STUDENT-9VxF"
+    organization = "STUDENT-BSkd"
 
     workspaces {
       name = "day1"
@@ -20,28 +20,31 @@ provider "bigip" {
   password = var.password
 }
 
- resource "bigip_ltm_monitor" "monitor" {
-  name     = "/Common/terraform_monitor"
+resource "bigip_ltm_monitor" "vs_tc1" {
+  name     = "/Common/test_monitor_vs_tc1"
   parent   = "/Common/http"
   send     = "GET /some/path\r\n"
   timeout  = "999"
-  interval = "999"
+  interval = "990"
 }
 
-resource "bigip_ltm_pool" "pool" {
-  name                = "/Common/terraform-pool"
+resource "bigip_ltm_pool" "vs_tc1" {
+  name                = "/Common/test_pool_vs_tc1"
   load_balancing_mode = "round-robin"
-  nodes               = ["10.0.0.171:80"]
-  monitors            = ["/Common/terraform_monitor"]
+  monitors            = [bigip_ltm_monitor.vs_tc1.name]
   allow_snat          = "yes"
   allow_nat           = "yes"
 }
 
-resource "bigip_ltm_virtual_server" "http" {
-  pool                       = "/Common/terraform-pool"
-  name                       = "/Common/terraform_vs_http"
-  destination                = "10.0.1.100"
+resource "bigip_ltm_pool_attachment" "vs_tc1" {
+  pool = bigip_ltm_pool.vs_tc1.name
+  node = "10.0.0.171:80"
+}
+
+resource "bigip_ltm_virtual_server" "vs_tc1" {
+  pool                       = bigip_ltm_pool.vs_tc1.name
+  name                       = "/Common/test_vs_tc1"
+  destination                = "10.0.0.200"
   port                       = 8080
   source_address_translation = "automap"
-  depends_on                 = ["bigip_ltm_pool.pool"]
 }
